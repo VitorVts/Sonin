@@ -1,29 +1,30 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+// app/_layout.tsx
+import { useFonts } from "expo-font";
+import { Slot } from "expo-router";
+import { ImageBackground, StyleSheet, View } from "react-native";
+import { ThemeProvider } from "styled-components/native";
+import bg from "../assets/images/bg.png";
+import theme from "../src/theme";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+export default function Layout() {
+  const [fontsLoaded] = useFonts({
+    Quicksand: require("../assets/fonts/Quicksand-Regular.ttf"),
+    "Quicksand-Bold": require("../assets/fonts/Quicksand-Bold.ttf"),
   });
 
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
+  if (!fontsLoaded) return <View />;
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
+    <ThemeProvider theme={theme}>
+      <ImageBackground source={bg} resizeMode="cover" style={styles.container}>
+        <Slot />
+      </ImageBackground>
     </ThemeProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { 
+    flex: 1,
+   },
+});
