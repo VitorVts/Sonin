@@ -14,7 +14,7 @@ const SafeContainer = styled(SafeAreaView)<TextProps>`
 `;
 
 const Container = styled.View`
-  flex: 1;
+  flex: ${(props) => props.flex || 1};
   justify-content: ${(props) => props.justify ||  props.theme.justify};
   align-items: ${(props) => props.align ||  props.theme.align};
 `;
@@ -31,10 +31,21 @@ const Title = styled(Text)<TextProps>`
   text-align: ${(props) => props.theme.textAlign || props.textAlign};
   margin-top: ${(props) => props.marginTop || 0}px;
 `;
+const Card = styled.View<{ background?: string }>`
+  width: 200px;
+  height: auto;
+  background-color: ${({ background }) => background || "#ffffff10"};
+  padding: 20px;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  align-items: center;
+`;
+
 
 export const S = {
   SafeContainer,
   Container,
   Text,
   Title,
+  Card,
 };

@@ -17,7 +17,11 @@ export default function Layout() {
   return (
     <ThemeProvider theme={theme}>
       <ImageBackground source={bg} resizeMode="cover" style={styles.container}>
-        <Slot />
+        <Slot 
+        screenOptions={{
+          animation: "fade_from_bottom",
+        }}
+        />
       </ImageBackground>
     </ThemeProvider>
   );
@@ -28,3 +32,4 @@ const styles = StyleSheet.create({
     flex: 1,
    },
 });
+
